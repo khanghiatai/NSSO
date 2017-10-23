@@ -23,4 +23,25 @@ public class LoginPage {
 	
 	@FindBy(id = "bt_submit")
 	public WebElement btn_Submit;
+	
+	@FindBy(id = "FirstName")
+	public WebElement txt_FirstName;
+	
+	@FindBy(id = "LastName")
+	public WebElement txt_LastName;
+	
+	@FindBy(id = "Description")
+	public WebElement txt_Description;
+	
+	@FindBy(id = "IsPrivate")
+	public WebElement chk_IsPrivate;
+	
+	@FindBy(id = "IsMale")
+	public WebElement cbo_IsMale;
+	
+	//IsMale
+	//DateOfBirthDay
+	//DateOfBirthMonth
+	//DateOfBirthYear
+	
 }

@@ -19,8 +19,9 @@ public class ResourceHasMap {
 		hm.put("infobasic", "Thông tin cơ bản");
 		hm.put("urltaikhoan", "/tai-khoan");
 		hm.put("urldoimatkhau", "/tai-khoan/doi-mat-khau");
-		hm.put("urldoimatkhau", "https://demoid.foody.vn/tai-khoan/doi-hinh-dai-dien");
-		
+		hm.put("urlupdateavatar", "/tai-khoan/doi-hinh-dai-dien");
+		hm.put("urlsession", "/tai-khoan/quan-ly-phien-dang-nhap");
+		hm.put("urladress", "/tai-khoan/quan-ly-dia-chi");
 	}
 	
 	private void dayOffWeek(){
