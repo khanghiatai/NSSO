@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import configruration.ResourceHasMap;
 import libraries.LoginFunctions;
+import objects.UserInfo;
 import support.CommonFunctions;
 
 public class LoginTest {
@@ -27,9 +28,9 @@ public class LoginTest {
 	public void login001_CheckUrl() {
 		strUrl = driver.getCurrentUrl();
 		strUrl = CommonFunctions.chuyenDoiKyTu(strUrl, "dang-nhap", "");
-		driver.navigate().to(strUrl + resource.getResource("urltaikhoan"));
+		driver.navigate().to(strUrl + resource.getResource("urlaccount"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-		driver.navigate().to(strUrl + resource.getResource("urldoimatkhau"));
+		driver.navigate().to(strUrl + resource.getResource("urlchangepass"));
 		Assert.assertEquals(driver.getTitle(), "Login");
 		driver.navigate().to(strUrl + resource.getResource("urlupdateavatar"));
 		Assert.assertEquals(driver.getTitle(), "Login");
@@ -48,10 +49,17 @@ public class LoginTest {
 		}		 
 	}
 	
-	@Test
-	public void updateInfo() {
+	@Test(dataProvider = "listUserInfo")
+	public void updateInfo(String fName, String lName, String gender, String day, String month, String year, String text) {
 		String time = new SimpleDateFormat("yyMMdd_HHmmss").format(Calendar.getInstance().getTime());getClass();
-		
+		//UserInfo userinfo = new UserInfo();
+		String strTitle = driver.getTitle();
+		if(strTitle.equalsIgnoreCase(resource.getResource("infobasic"))) {
+			login.updateUserInfo(driver, fName, lName,  gender, day, month, year, text);
+		} else {
+			driver.navigate().to(strUrl + resource.getResource("urlaccount"));
+			login.updateUserInfo(driver, fName, lName,  gender, day, month, year, text);
+		}
 	}
 
 	@DataProvider
@@ -68,6 +76,14 @@ public class LoginTest {
 		};
 	}
 
+	@DataProvider
+	public Object[][] listUserInfo() {
+		return new Object[][] { 
+			new Object[] { "firstName 1", "lastName 1", resource.getResource("male"), "1", "1", "1990", "text area 1" },
+			new Object[] { "firstName 2", "lastName 2", resource.getResource("female"), "2", "2", "1992", "text area 2" },		
+		};
+	}
+	
 	@Parameters({ "BROWSER", "URL" })
 	@BeforeTest
 	public void beforeClass(String BROWSER, String URL) throws MalformedURLException {

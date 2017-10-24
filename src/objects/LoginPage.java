@@ -37,11 +37,16 @@ public class LoginPage {
 	public WebElement chk_IsPrivate;
 	
 	@FindBy(id = "IsMale")
-	public WebElement cbo_IsMale;
+	public WebElement ddl_IsMale;
 	
-	//IsMale
-	//DateOfBirthDay
-	//DateOfBirthMonth
-	//DateOfBirthYear
+	@FindBy(id = "DateOfBirthDay")
+	public WebElement ddl_DateOfBirthDay;
+	
+	@FindBy(id = "DateOfBirthMonth")
+	public WebElement ddl_DateOfBirthMonth;
+	
+	@FindBy(id = "DateOfBirthYear")
+	public WebElement ddl_DateOfBirthYear;
+
 	
 }

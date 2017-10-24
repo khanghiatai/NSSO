@@ -17,11 +17,14 @@ public class ResourceHasMap {
 	
 	private void SSOResource(){
 		hm.put("infobasic", "Thông tin cơ bản");
-		hm.put("urltaikhoan", "/tai-khoan");
-		hm.put("urldoimatkhau", "/tai-khoan/doi-mat-khau");
+		hm.put("urlaccount", "/tai-khoan");
+		hm.put("urlchangepass", "/tai-khoan/doi-mat-khau");
 		hm.put("urlupdateavatar", "/tai-khoan/doi-hinh-dai-dien");
 		hm.put("urlsession", "/tai-khoan/quan-ly-phien-dang-nhap");
 		hm.put("urladress", "/tai-khoan/quan-ly-dia-chi");
+		//
+		hm.put("male","Nam");
+		hm.put("female", "Nữ");
 	}
 	
 	private void dayOffWeek(){
