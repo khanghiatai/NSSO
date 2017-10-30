@@ -25,6 +25,11 @@ public class ResourceHasMap {
 		//
 		hm.put("male","Nam");
 		hm.put("female", "Nữ");
+		hm.put("emailnull", "Vui lòng nhập username or email");
+		hm.put("passwordnull", "Vui lòng nhập mật khẩu");
+		hm.put("wrongaccount", "Email hoặc Mật khẩu không chính xác!");
+		hm.put("updatesuccess", "Cập nhật thành công!");
+		
 	}
 	
 	private void dayOffWeek(){

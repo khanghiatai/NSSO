@@ -21,7 +21,7 @@ public class LoginPage {
 	@FindBy(id = "Password")
 	public WebElement txt_Password;
 	
-	@FindBy(id = "bt_submit")
+	@FindBy(xpath = "//*[@id='bt_submit']")
 	public WebElement btn_Submit;
 	
 	@FindBy(id = "FirstName")
@@ -47,6 +47,28 @@ public class LoginPage {
 	
 	@FindBy(id = "DateOfBirthYear")
 	public WebElement ddl_DateOfBirthYear;
-
 	
+	@FindBy(xpath = ".//*[@data-valmsg-for='Email']")
+	public WebElement lbl_EmailNull;
+	
+	@FindBy(xpath = "//*[@id='Password-error']")
+	public WebElement lbl_PasswordNull;
+	
+	@FindBy(xpath = "//*[@class='bs-example-bg-classes']")
+	public WebElement lbl_UpdateSuccess;
+	
+	@FindBy(className = "profile-usertitle-name")
+	public WebElement lbl_UserTitleName;
+	
+	@FindBy(name = "OldPassword")
+	public WebElement txt_OldPass;
+	
+	@FindBy(name = "NewPassword")
+	public WebElement txt_NewPassword;
+	
+	@FindBy(name = "ConfirmNewPassword")
+	public WebElement txt_ConfirmNewPassword;
+	
+	@FindBy(id = "proChangePass")
+	public WebElement lnk_ChangePassword;
 }

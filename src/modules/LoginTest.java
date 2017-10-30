@@ -11,10 +11,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import configruration.ResourceHasMap;
 import libraries.LoginFunctions;
-import objects.UserInfo;
 import support.CommonFunctions;
 
 public class LoginTest {
@@ -25,7 +23,7 @@ public class LoginTest {
 	String strUrl;
 	
 	@Test
-	public void login001_CheckUrl() {
+	private void login001_CheckUrl() {
 		strUrl = driver.getCurrentUrl();
 		strUrl = CommonFunctions.chuyenDoiKyTu(strUrl, "dang-nhap", "");
 		driver.navigate().to(strUrl + resource.getResource("urlaccount"));
@@ -41,38 +39,45 @@ public class LoginTest {
 	}	
 	
 	@Test(dataProvider = "listUserAccount")
-	public void login002_Login(String email, String password) {
-		login.login(driver, email, password); 
-		// check login successful 
-		if(driver.getCurrentUrl().contentEquals(resource.getResource("infobasic"))) {
-			Assert.assertEquals("", "");
-		}		 
+	private void login002_Login(String email, String password) {		
+		login.login(driver, email, password); 		
+		if(email == " " && password != " ")
+			login.checkEmailNull(driver, email, password);
+		if(email != " " && password == " ")
+			login.checkPassNull(driver, email, password);
+		if(email != " " && password != " ")
+			login.checkWrongAccount(driver, email, password);			 
 	}
 	
 	@Test(dataProvider = "listUserInfo")
-	public void updateInfo(String fName, String lName, String gender, String day, String month, String year, String text) {
+	private void login003_UpdateInfo(String fName, String lName, String gender, String day, String month, String year, String text) {
 		String time = new SimpleDateFormat("yyMMdd_HHmmss").format(Calendar.getInstance().getTime());getClass();
-		//UserInfo userinfo = new UserInfo();
+
 		String strTitle = driver.getTitle();
 		if(strTitle.equalsIgnoreCase(resource.getResource("infobasic"))) {
-			login.updateUserInfo(driver, fName, lName,  gender, day, month, year, text);
-		} else {
+			login.updateUserInfo(driver, fName + time, lName + time,  gender, day, month, year, text  + time);			
+		} else { // link from other page
 			driver.navigate().to(strUrl + resource.getResource("urlaccount"));
-			login.updateUserInfo(driver, fName, lName,  gender, day, month, year, text);
+			login.updateUserInfo(driver, fName + time, lName + time,  gender, day, month, year, text + time);
 		}
+	}
+	
+	@Test(dataProvider = "listChangePass")
+	private void login004_ChangePassword(String oldPass, String newPass, String confirmPass) {
+		login.changePassword(driver, oldPass, newPass, confirmPass);
 	}
 
 	@DataProvider
 	public Object[][] listUserAccount() {
 		return new Object[][] { 
 			new Object[] { " ", " " },
-			new Object[] { "", "123123" }, 
+			new Object[] { " ", "123123" }, 
 			new Object[] { "tai.kha", " " },
 			new Object[] { "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 
 					"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" }, 
 			//new Object[] { "!@#$%^&*()-=_+[]|;',./<>?", "!@#$%^&*()-=_+[]|;',./<>?" }, 
 			new Object[] { "tai.kha", " " },
-			new Object[] { "tai.kha", "123123" }, 
+			new Object[] { "khangnghiatai@gmail.com", "123456" }, 
 		};
 	}
 
@@ -81,6 +86,19 @@ public class LoginTest {
 		return new Object[][] { 
 			new Object[] { "firstName 1", "lastName 1", resource.getResource("male"), "1", "1", "1990", "text area 1" },
 			new Object[] { "firstName 2", "lastName 2", resource.getResource("female"), "2", "2", "1992", "text area 2" },		
+		};
+	}
+	
+	@DataProvider
+	public Object[][] listChangePass() {
+		return new Object[][] { 
+			new Object[] { " ", " ", " " },
+			new Object[] { "123456", " ", " " },
+			new Object[] { " ", "123123", "123456" },
+			new Object[] { "123456", "", "123123" },
+			new Object[] { "123456", "123123", "" },
+			new Object[] { "123456", "123123", "123123" },
+			new Object[] { "123123", "123456", "123456" },		
 		};
 	}
 	
