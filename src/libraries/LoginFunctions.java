@@ -30,6 +30,15 @@ public class LoginFunctions extends LoginPage{
 		txt_NewPassword.sendKeys(newPass); 
 		txt_ConfirmNewPassword.clear();
 		txt_ConfirmNewPassword.sendKeys(confirmPass); 
+		btn_Submit.click();
+	}
+	
+	public void checkMessageNull(WebDriver driver, String textbox, String id, String value) {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		String strPass = js.executeScript("return document.getElementById('" + id + "').innerText;").toString();
+		if(textbox == "" || textbox == " ") {
+			Assert.assertEquals(value, strPass);
+		}
 	}
 	
 	public boolean checkEmailNull(WebDriver driver, String email, String password) {
@@ -61,8 +70,8 @@ public class LoginFunctions extends LoginPage{
 			strMess = strMess.substring(2, strMess.length());
 			Assert.assertEquals(resource.getResource("wrongaccount"), strMess);
 		} catch (Exception e) {	
-			CommonFunctions.pause(1);
-			String strTitle = driver.getTitle();
+			CommonFunctions.pause(4);
+			String strTitle = driver.getTitle().toString();
 			Assert.assertEquals(strTitle, resource.getResource("infobasic"));
 		}		
 	}

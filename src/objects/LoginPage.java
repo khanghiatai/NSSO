@@ -71,4 +71,13 @@ public class LoginPage {
 	
 	@FindBy(id = "proChangePass")
 	public WebElement lnk_ChangePassword;
+	
+	@FindBy(id = "OldPassword-error")
+	public WebElement lbl_oldPassError;
+	
+	@FindBy(id = "NewPassword-error")
+	public WebElement lbl_NewPassError;
+	
+	@FindBy(id = "")
+	public WebElement lbl_ConfirmPassError;
 }

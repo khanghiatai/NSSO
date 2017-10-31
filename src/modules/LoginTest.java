@@ -65,6 +65,17 @@ public class LoginTest {
 	@Test(dataProvider = "listChangePass")
 	private void login004_ChangePassword(String oldPass, String newPass, String confirmPass) {
 		login.changePassword(driver, oldPass, newPass, confirmPass);
+		if(newPass != confirmPass) {
+			login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", resource.getResource("confirmpassnull"));
+		} else {
+			if(oldPass == "") {
+				login.checkMessageNull(driver, oldPass, "OldPassword-error", resource.getResource("oldpassnull"));
+			} if(newPass == "") {
+				login.checkMessageNull(driver, newPass, "NewPassword-error", resource.getResource("newpassnull"));
+			} if(confirmPass == "") {
+				login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", resource.getResource("confirmpassnull"));
+			}
+		}
 	}
 
 	@DataProvider
@@ -76,7 +87,6 @@ public class LoginTest {
 			new Object[] { "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 
 					"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" }, 
 			//new Object[] { "!@#$%^&*()-=_+[]|;',./<>?", "!@#$%^&*()-=_+[]|;',./<>?" }, 
-			new Object[] { "tai.kha", " " },
 			new Object[] { "khangnghiatai@gmail.com", "123456" }, 
 		};
 	}
@@ -92,9 +102,9 @@ public class LoginTest {
 	@DataProvider
 	public Object[][] listChangePass() {
 		return new Object[][] { 
-			new Object[] { " ", " ", " " },
-			new Object[] { "123456", " ", " " },
-			new Object[] { " ", "123123", "123456" },
+			new Object[] { "", "", "" },
+			new Object[] { "123456", "", "" },
+			new Object[] { "", "123123", "123456" },
 			new Object[] { "123456", "", "123123" },
 			new Object[] { "123456", "123123", "" },
 			new Object[] { "123456", "123123", "123123" },

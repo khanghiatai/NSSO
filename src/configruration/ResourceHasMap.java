@@ -22,14 +22,15 @@ public class ResourceHasMap {
 		hm.put("urlupdateavatar", "/tai-khoan/doi-hinh-dai-dien");
 		hm.put("urlsession", "/tai-khoan/quan-ly-phien-dang-nhap");
 		hm.put("urladress", "/tai-khoan/quan-ly-dia-chi");
-		//
 		hm.put("male","Nam");
 		hm.put("female", "Nữ");
 		hm.put("emailnull", "Vui lòng nhập username or email");
 		hm.put("passwordnull", "Vui lòng nhập mật khẩu");
 		hm.put("wrongaccount", "Email hoặc Mật khẩu không chính xác!");
 		hm.put("updatesuccess", "Cập nhật thành công!");
-		
+		hm.put("oldpassnull", "Nhập mật khẩu cũ");
+		hm.put("newpassnull", "Nhập mật khẩu mới");
+		hm.put("confirmpassnull", "Xác nhận mật khẩu mới");
 	}
 	
 	private void dayOffWeek(){
