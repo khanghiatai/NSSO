@@ -33,6 +33,13 @@ public class LoginFunctions extends LoginPage{
 		btn_Submit.click();
 	}
 	
+	public void logout(WebDriver driver) {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("document.querySelectorAll('.nav li a')[5].click();");
+		CommonFunctions.pause(1);
+		Assert.assertEquals(driver.getTitle(), "Login");
+	}
+	
 	public void checkMessageNull(WebDriver driver, String textbox, String id, String value) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		String strPass = js.executeScript("return document.getElementById('" + id + "').innerText;").toString();

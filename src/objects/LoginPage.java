@@ -80,4 +80,5 @@ public class LoginPage {
 	
 	@FindBy(id = "")
 	public WebElement lbl_ConfirmPassError;
+	
 }

@@ -77,6 +77,11 @@ public class LoginTest {
 			}
 		}
 	}
+	
+	@Test
+	private void login010_Logout() {
+		login.logout(driver); 
+	}
 
 	@DataProvider
 	public Object[][] listUserAccount() {
