@@ -1,5 +1,6 @@
 package libraries;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -102,5 +103,40 @@ public class LoginFunctions extends LoginPage{
 		String strTitleName = fName + " " + lName;
 		Assert.assertEquals(lbl_UserTitleName.getText(), strTitleName);
 		
+	}
+	
+	public void clickForgotPassWord(WebDriver driver) {
+		hpl_forgotPass.click();
+	}
+	
+	public void forgotPassword(WebDriver driver, String email) {
+		Assert.assertEquals(resource.getResource("forgotpass"), driver.getTitle());	
+		txt_Email.clear();
+		txt_Email.sendKeys(email); 		
+		btn_Submit.click();
+	}
+	
+	public void checkMesageGetPass(WebDriver driver, String email) {
+		email = CommonFunctions.chuanHoa(email);
+		if(email.equals("") || email.equals(" ")) {		
+			Assert.assertEquals(resource.getResource("inputmail"), lbl_EmailNull.getText());
+		} else if(!email.equals("")) {
+			try {
+				String _messEmail = driver.findElement(By.xpath(".//div[@class='mess-box']")).getText();
+				String strMessNotFoundEmail = resource.getResource("notfoundmail") + email + resource.getResource("insystem");
+				String strMessSuccess = resource.getResource("messsentmail") + email + resource.getResource("messcheckmail");
+				if(_messEmail.equalsIgnoreCase(strMessNotFoundEmail)){
+					Assert.assertEquals(strMessNotFoundEmail, _messEmail);
+				} else {
+					Assert.assertEquals(strMessSuccess, _messEmail);
+				}
+			} catch (Exception e) {
+				if (lbl_EmailNull.getText().equalsIgnoreCase(resource.getResource("wrongformatemail"))) {
+					Assert.assertEquals(resource.getResource("wrongformatemail"), lbl_EmailNull.getText()); 
+				} else {
+					Assert.assertEquals(0,1);  
+				}
+			}
+		}	
 	}
 }

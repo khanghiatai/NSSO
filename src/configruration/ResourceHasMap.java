@@ -31,6 +31,16 @@ public class ResourceHasMap {
 		hm.put("oldpassnull", "Nhập mật khẩu cũ");
 		hm.put("newpassnull", "Nhập mật khẩu mới");
 		hm.put("confirmpassnull", "Xác nhận mật khẩu mới");
+		hm.put("forgotpass", "Forgot Password");
+		hm.put("inputmail", "Vui lòng nhập email");
+		hm.put("notfoundmail", "Email sai định dạng");
+		hm.put("insystem", "Email sai định dạng");
+		hm.put("notfoundmail", "Không tìm thấy email ");
+		hm.put("insystem", " trong hệ thống, vui lòng kiểm tra lại email đăng kí của bạn!");
+		hm.put("wrongformatemail", "Email sai định dạng");
+		hm.put("messsentmail", "Email hướng dẫn lấy lại mật khẩu đã được gửi tới ");
+		hm.put("messcheckmail", ", vui lòng kiểm tra email để có hướng dẫn lấy lại mật khẩu");
+
 	}
 	
 	private void dayOffWeek(){

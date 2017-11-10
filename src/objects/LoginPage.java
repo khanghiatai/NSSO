@@ -78,7 +78,7 @@ public class LoginPage {
 	@FindBy(id = "NewPassword-error")
 	public WebElement lbl_NewPassError;
 	
-	@FindBy(id = "")
-	public WebElement lbl_ConfirmPassError;
+	@FindBy(xpath = ".//input[@id='RememberMe']/following-sibling::span/a")
+	public WebElement hpl_forgotPass;
 	
 }

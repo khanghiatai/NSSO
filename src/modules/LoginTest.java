@@ -81,6 +81,13 @@ public class LoginTest {
 	@Test
 	private void login010_Logout() {
 		login.logout(driver); 
+		login.clickForgotPassWord(driver); 
+	}
+	
+	@Test(dataProvider = "listEmail")
+	private void login011_ForgetPassword(String email) {		
+		login.forgotPassword(driver, email); 
+		login.checkMesageGetPass(driver, email);
 	}
 
 	@DataProvider
@@ -101,6 +108,17 @@ public class LoginTest {
 		return new Object[][] { 
 			new Object[] { "firstName 1", "lastName 1", resource.getResource("male"), "1", "1", "1990", "text area 1" },
 			new Object[] { "firstName 2", "lastName 2", resource.getResource("female"), "2", "2", "1992", "text area 2" },		
+		};
+	}
+	
+	@DataProvider
+	public Object[][] listEmail() {
+		return new Object[][] { 
+			new Object[] {""},
+			new Object[] {""},	
+			new Object[] {"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"},
+			new Object[] {"tai23232@gmail.com"},
+			new Object[] {"khangnghiatai@gmail.com"},
 		};
 	}
 	
