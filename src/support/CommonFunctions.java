@@ -5,10 +5,13 @@ import java.net.URL;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,7 +22,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;;
 
 public class CommonFunctions {
 
@@ -285,6 +290,7 @@ public class CommonFunctions {
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/Driver/chromedriver.exe");
 			// maximum window
 			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--disable-extensions");
 			options.addArguments("--start-maximized");
 			driver = new ChromeDriver(options);
 		} else if (browserType.equalsIgnoreCase("Ie")) {
@@ -345,7 +351,7 @@ public class CommonFunctions {
 	 */
 	public static void visit(WebDriver driver, String url) {
 		driver.get(url);
-		// driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	public static boolean verifyElementEnabled(WebDriver driver, String how, String locator) {
@@ -439,4 +445,45 @@ public class CommonFunctions {
 	public static void waitForControl(WebDriver driver, WebElement controlName) {
 	    new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(controlName));
 	}	
+	
+	/***
+	 * Wait text of element appear
+	 * @param driver
+	 * @param xpath
+	 * @param text
+	 * @param seconds
+	 * @return true/ false
+	 */
+	public static boolean fluentWait(WebDriver driver, String strXpath, String text, int seconds) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(seconds, TimeUnit.SECONDS)
+				.pollingEvery(255, TimeUnit.MILLISECONDS)
+				.ignoring(NoSuchElementException.class);
+		
+		WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+			public WebElement apply(WebDriver driver) {
+				WebElement ele = driver.findElement(By.xpath(strXpath));
+				String value = ele.getAttribute("innerHTML");
+				if(value.equalsIgnoreCase(text)) {
+					return ele;
+				}					
+				else {	
+					return null;
+				}
+			}
+		});
+		if (element != null) return true;
+		else return false;
+	}
+	
+	public static boolean explicitWait(WebDriver driver, String strXpath, int seconds) {
+		WebDriverWait wait = new WebDriverWait(driver, seconds);
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(strXpath)));
+		boolean status = element.isDisplayed();
+		if(status)
+			return true;
+		else 
+			return false;
+	}
+	
 }
