@@ -36,7 +36,7 @@ public class LoginFunctions extends LoginPage{
 	
 	public void logout(WebDriver driver) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("document.querySelectorAll('.nav li a')[5].click();");
+		js.executeScript("document.querySelectorAll('.nav li a')[6].click();");
 		CommonFunctions.pause(1);
 		Assert.assertEquals(driver.getTitle(), "Login");
 	}
