@@ -9,13 +9,13 @@ import objects.LoginPage;
 import supports.CommonFunctions;
 
 public class LoginFunctions extends LoginPage{
-	ResourceHasMap sResource = new ResourceHasMap();
+	private ResourceHasMap sResource = new ResourceHasMap();
 	
 	public LoginFunctions(WebDriver driver) {
 		super(driver);
 	}
 
-	public void login(WebDriver driver, String email, String password) {
+	public void login(String email, String password) {
 		txt_Email.clear();
 		txt_Email.sendKeys(email);
 		txt_Password.clear();
@@ -23,7 +23,7 @@ public class LoginFunctions extends LoginPage{
 		btn_Submit.click();
 	}
 	
-	public void changePassword(WebDriver driver, String oldPass, String newPass, String confirmPass) {
+	public void changePassword(String oldPass, String newPass, String confirmPass) {
 		lnk_ChangePassword.click();
 		txt_OldPass.clear();
 		txt_OldPass.sendKeys(oldPass); 
@@ -49,36 +49,34 @@ public class LoginFunctions extends LoginPage{
 		}
 	}
 	
-	public boolean checkEmailNull(WebDriver driver, String email, String password) {
+	public void checkEmailNull(WebDriver driver, String email, String password) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		String strEmail = js.executeScript("return document.querySelector('.inner-addon span.field-validation-error').innerText;").toString();
 		if (email.equals(" ") || email.equals("")) {
 			if(!password.equals(" ")) {
-				Assert.assertEquals(sResource.getResource("emailnull"), strEmail);				
-				return true;
-			} else return false;				
-		} else return false;				
+				Assert.assertEquals(sResource.getResource("emailnull"), strEmail);
+			}
+		}
 	}
 	
-	public boolean checkPassNull(WebDriver driver, String email, String password) {
+	public void checkPassNull(WebDriver driver, String email, String password) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		String strPass = js.executeScript("return document.querySelector('.inner-addon span.field-validation-error').innerText;").toString();
 		if (!email.equals(" ") || !email.equals(" ")) {
 			if(!password.equals(" ")) {
-				Assert.assertEquals(sResource.getResource("passwordnull"), strPass);				
-				return true;
-			} else return false;				
-		} else return false;				
+				Assert.assertEquals(sResource.getResource("passwordnull"), strPass);
+			}
+		}
 	}
 	
-	public void checkWrongAccount(WebDriver driver, String email, String password) {		
+	public void checkWrongAccount(WebDriver driver) {
 		try {   
 			JavascriptExecutor js = (JavascriptExecutor)driver;
 			String strMess = js.executeScript("return document.querySelector('.alert.alert-danger').innerText;").toString();
 			strMess = strMess.substring(2, strMess.length());
 			Assert.assertEquals(sResource.getResource("wrongaccount"), strMess);
 		} catch (Exception e) {	
-			CommonFunctions.pause(4);
+			CommonFunctions.pause(2);
 			String strTitle = driver.getTitle();
 			Assert.assertEquals(strTitle, sResource.getResource("infobasic"));
 		}		
@@ -105,7 +103,7 @@ public class LoginFunctions extends LoginPage{
 		
 	}
 	
-	public void clickForgotPassWord(WebDriver driver) {
+	public void clickForgotPassWord() {//WebDriver driver
 		hpl_forgotPass.click();
 	}
 	

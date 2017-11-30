@@ -17,63 +17,64 @@ import supports.CommonFunctions;
 
 public class LoginTest {
 
-	public static WebDriver driver; 	
-	ResourceHasMap resource = new ResourceHasMap();
-	LoginFunctions login;
-	String strUrl;
+	private static WebDriver driver;
+	private ResourceHasMap sResource = new ResourceHasMap();
+	private LoginFunctions login;
+	private String strUrl;
 	
 	@Test
 	private void login001_CheckUrl() {
 		strUrl = driver.getCurrentUrl();
 		strUrl = CommonFunctions.chuyenDoiKyTu(strUrl, "dang-nhap", "");
-		driver.navigate().to(strUrl + resource.getResource("urlaccount"));
+		driver.navigate().to(strUrl + sResource.getResource("urlaccount"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-		driver.navigate().to(strUrl + resource.getResource("urlchangepass"));
+		driver.navigate().to(strUrl + sResource.getResource("urlchangepass"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-		driver.navigate().to(strUrl + resource.getResource("urlupdateavatar"));
+		driver.navigate().to(strUrl + sResource.getResource("urlupdateavatar"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-		driver.navigate().to(strUrl + resource.getResource("urlsession"));
+		driver.navigate().to(strUrl + sResource.getResource("urlsession"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-		driver.navigate().to(strUrl + resource.getResource("urladress"));
+		driver.navigate().to(strUrl + sResource.getResource("urladress"));
 		Assert.assertEquals(driver.getTitle(), "Login");
 	}	
 	
 	@Test(dataProvider = "listUserAccount")
 	private void login002_Login(String email, String password) {		
-		login.login(driver, email, password); 		
-		if(email == " " && password != " ")
+		login.login(email, password);
+		if(email.equals(" ") && !password.equals(" ")){
 			login.checkEmailNull(driver, email, password);
-		if(email != " " && password == " ")
+		} if(!email.equals(" ") && password.equals(" ")) {
 			login.checkPassNull(driver, email, password);
-		if(email != " " && password != " ")
-			login.checkWrongAccount(driver, email, password);			 
+		} if(!email.equals(" ") && !password.equals(" ")){
+			login.checkWrongAccount(driver);
+		}
 	}
 	
 	@Test(dataProvider = "listUserInfo")
 	private void login003_UpdateInfo(String fName, String lName, String gender, String day, String month, String year, String text) {
-		String time = new SimpleDateFormat("yyMMdd_HHmmss").format(Calendar.getInstance().getTime());getClass();
+		String time = new SimpleDateFormat("yyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
 		String strTitle = driver.getTitle();
-		if(strTitle.equalsIgnoreCase(resource.getResource("infobasic"))) {
+		if(strTitle.equalsIgnoreCase(sResource.getResource("infobasic"))) {
 			login.updateUserInfo(driver, fName + time, lName + time,  gender, day, month, year, text  + time);			
 		} else { // link from other page
-			driver.navigate().to(strUrl + resource.getResource("urlaccount"));
+			driver.navigate().to(strUrl + sResource.getResource("urlaccount"));
 			login.updateUserInfo(driver, fName + time, lName + time,  gender, day, month, year, text + time);
 		}
 	}
 	
 	@Test(dataProvider = "listChangePass")
 	private void login004_ChangePassword(String oldPass, String newPass, String confirmPass) {
-		login.changePassword(driver, oldPass, newPass, confirmPass);
-		if(newPass != confirmPass) {
-			login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", resource.getResource("confirmpassnull"));
+		login.changePassword(oldPass, newPass, confirmPass);
+		if(!newPass.equals(confirmPass)) {
+			login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", sResource.getResource("confirmpassnull"));
 		} else {
-			if(oldPass == "") {
-				login.checkMessageNull(driver, oldPass, "OldPassword-error", resource.getResource("oldpassnull"));
-			} if(newPass == "") {
-				login.checkMessageNull(driver, newPass, "NewPassword-error", resource.getResource("newpassnull"));
-			} if(confirmPass == "") {
-				login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", resource.getResource("confirmpassnull"));
+			if(oldPass.equals("")) {
+				login.checkMessageNull(driver, oldPass, "OldPassword-error", sResource.getResource("oldpassnull"));
+			} if(newPass.equals("")) {
+				login.checkMessageNull(driver, newPass, "NewPassword-error", sResource.getResource("newpassnull"));
+			} if(confirmPass.equals("")) {
+				login.checkMessageNull(driver, confirmPass, "ConfirmNewPassword-error", sResource.getResource("confirmpassnull"));
 			}
 		}
 	}
@@ -81,7 +82,7 @@ public class LoginTest {
 	@Test
 	private void login010_Logout() {
 		login.logout(driver); 
-		login.clickForgotPassWord(driver); 
+		login.clickForgotPassWord();//driver
 	}
 	
 	@Test(dataProvider = "listEmail")
@@ -106,8 +107,8 @@ public class LoginTest {
 	@DataProvider
 	public Object[][] listUserInfo() {
 		return new Object[][] { 
-			new Object[] { "firstName 1", "lastName 1", resource.getResource("male"), "1", "1", "1990", "text area 1" },
-			new Object[] { "firstName 2", "lastName 2", resource.getResource("female"), "2", "2", "1992", "text area 2" },		
+			new Object[] { "firstName 1", "lastName 1", sResource.getResource("male"), "1", "1", "1990", "text area 1" },
+			new Object[] { "firstName 2", "lastName 2", sResource.getResource("female"), "2", "2", "1992", "text area 2" },
 		};
 	}
 	
