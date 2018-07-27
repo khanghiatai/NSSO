@@ -4,11 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-//import org.openqa.selenium.supports.pagefactory.AjaxElementLocatorFactory;
 
 public class LoginPage {
 
-	//public WebDriver driver;
+	public WebDriver driver;
 	
 	public LoginPage(WebDriver driver) {
 		//AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(driver,100);

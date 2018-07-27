@@ -1,5 +1,6 @@
 package libraries;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +37,7 @@ public class LoginFunctions extends LoginPage{
 	
 	public void logout(WebDriver driver) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("document.querySelectorAll('.nav li a')[6].click();");
+		js.executeScript("document.querySelectorAll('.nav li a')[5].click();");
 		CommonFunctions.pause(1);
 		Assert.assertEquals(driver.getTitle(), "Login");
 	}
@@ -50,27 +51,29 @@ public class LoginFunctions extends LoginPage{
 	}
 	
 	public void checkEmailNull(WebDriver driver, String email, String password) {
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		String strEmail = js.executeScript("return document.querySelector('.inner-addon span.field-validation-error').innerText;").toString();
 		if (email.equals(" ") || email.equals("")) {
 			if(!password.equals(" ")) {
-				Assert.assertEquals(sResource.getResource("emailnull"), strEmail);
+				Alert alt = driver.switchTo().alert();
+				String alerText = alt.getText();
+				Assert.assertEquals(sResource.getResource("inputmail"),alerText);
+				alt.accept();
 			}
 		}
 	}
 	
 	public void checkPassNull(WebDriver driver, String email, String password) {
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		String strPass = js.executeScript("return document.querySelector('.inner-addon span.field-validation-error').innerText;").toString();
 		if (!email.equals(" ") || !email.equals(" ")) {
 			if(!password.equals(" ")) {
-				Assert.assertEquals(sResource.getResource("passwordnull"), strPass);
+				Alert alt = driver.switchTo().alert();
+				String alerText = alt.getText();
+				Assert.assertEquals(sResource.getResource("inputpass"),alerText);
+				alt.accept();
 			}
 		}
 	}
 	
 	public void checkWrongAccount(WebDriver driver) {
-		try {   
+		/*try {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
 			String strMess = js.executeScript("return document.querySelector('.alert.alert-danger').innerText;").toString();
 			strMess = strMess.substring(2, strMess.length());
@@ -79,7 +82,8 @@ public class LoginFunctions extends LoginPage{
 			CommonFunctions.pause(2);
 			String strTitle = driver.getTitle();
 			Assert.assertEquals(strTitle, sResource.getResource("infobasic"));
-		}		
+		}	*/
+		//Alert a = new
 	}
 	
 	public void updateUserInfo(WebDriver driver, String fName, String lName, String gender, String day, String month, String year, String text) {

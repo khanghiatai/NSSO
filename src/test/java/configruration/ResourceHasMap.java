@@ -26,13 +26,14 @@ public class ResourceHasMap {
 		hm.put("female", "Nữ");
 		hm.put("emailnull", "Vui lòng nhập username or email");
 		hm.put("passwordnull", "Vui lòng nhập mật khẩu");
-		hm.put("wrongaccount", "Email hoặc Mật khẩu không chính xác!");
+		//hm.put("wrongaccount", "Email hoặc Mật khẩu không chính xác!");
 		hm.put("updatesuccess", "Cập nhật thành công!");
 		hm.put("oldpassnull", "Nhập mật khẩu cũ");
 		hm.put("newpassnull", "Nhập mật khẩu mới");
 		hm.put("confirmpassnull", "Xác nhận mật khẩu mới");
 		hm.put("forgotpass", "Forgot Password");
-		hm.put("inputmail", "Vui lòng nhập email");
+		hm.put("inputmail", "Vui lòng nhập email của bạn");
+		hm.put("inputpass", "Vui lòng nhập mật khẩu đăng nhập");
 		hm.put("notfoundmail", "Email sai định dạng");
 		hm.put("insystem", "Email sai định dạng");
 		hm.put("notfoundmail", "Không tìm thấy email ");

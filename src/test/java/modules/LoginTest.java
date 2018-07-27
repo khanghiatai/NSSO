@@ -36,7 +36,7 @@ public class LoginTest {
 		Assert.assertEquals(driver.getTitle(), "Login");
 		driver.navigate().to(strUrl + sResource.getResource("urladress"));
 		Assert.assertEquals(driver.getTitle(), "Login");
-	}	
+	}
 	
 	@Test(dataProvider = "listUserAccount")
 	private void login002_Login(String email, String password) {		
@@ -82,7 +82,7 @@ public class LoginTest {
 	@Test
 	private void login010_Logout() {
 		login.logout(driver); 
-		login.clickForgotPassWord();//driver
+		login.clickForgotPassWord();
 	}
 	
 	@Test(dataProvider = "listEmail")
@@ -94,13 +94,13 @@ public class LoginTest {
 	@DataProvider
 	public Object[][] listUserAccount() {
 		return new Object[][] { 
-			new Object[] { " ", " " },
-			new Object[] { " ", "123123" }, 
-			new Object[] { "tai.kha", " " },
-			new Object[] { "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 
-					"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" }, 
-			//new Object[] { "!@#$%^&*()-=_+[]|;',./<>?", "!@#$%^&*()-=_+[]|;',./<>?" }, 
-			new Object[] { "khangnghiatai@gmail.com", "123456" }, 
+			//new Object[] { " ", " " },
+			//new Object[] { " ", "123123" },
+			//new Object[] { "tai.kha", " " },
+			new Object[] { "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
+					"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" },
+			new Object[] { "!@#$%^&*()-=_+[]|;',./<>?", "!@#$%^&*()-=_+[]|;',./<>?" },
+			new Object[] { "khangnghiatai@gmail.com", "123123" },
 		};
 	}
 
@@ -114,9 +114,9 @@ public class LoginTest {
 	
 	@DataProvider
 	public Object[][] listEmail() {
-		return new Object[][] { 
-			new Object[] {""},
-			new Object[] {""},	
+		return new Object[][] {
+//			new Object[] {""},
+//			new Object[] {""},
 			new Object[] {"123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"},
 			new Object[] {"tai23232@gmail.com"},
 			new Object[] {"khangnghiatai@gmail.com"},
