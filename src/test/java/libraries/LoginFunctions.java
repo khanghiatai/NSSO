@@ -36,8 +36,10 @@ public class LoginFunctions extends LoginPage{
 	}
 	
 	public void logout(WebDriver driver) {
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("document.querySelectorAll('.nav li a')[5].click();");
+		//JavascriptExecutor js = (JavascriptExecutor)driver;
+		//js.executeScript("document.querySelectorAll('.nav li a')[5].click();");
+
+		hpl_logout.click();
 		CommonFunctions.pause(1);
 		Assert.assertEquals(driver.getTitle(), "Login");
 	}
@@ -86,20 +88,22 @@ public class LoginFunctions extends LoginPage{
 		//Alert a = new
 	}
 	
-	public void updateUserInfo(WebDriver driver, String fName, String lName, String gender, String day, String month, String year, String text) {
+	public void updateUserInfo(WebDriver driver, String fName, String lName, int status, int gender, String day, String month, String year, String text) {
 		txt_FirstName.clear();
 		txt_FirstName.sendKeys(fName);
 		txt_LastName.clear();
 		txt_LastName.sendKeys(lName);
-		CommonFunctions.selectedByText(ddl_IsMale, gender);
+
+		CommonFunctions.selectedByIndex(ddl_IsMale, gender);
+		CommonFunctions.selectedByIndex(ddl_IsStatus, status);
+
 		CommonFunctions.selectedByText(ddl_DateOfBirthDay, day);
 		CommonFunctions.selectedByText(ddl_DateOfBirthMonth, month);
 		CommonFunctions.selectedByText(ddl_DateOfBirthYear, year);
 		txt_Description.clear();
 		txt_Description.sendKeys(text);
-		// click submit & check message
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("document.getElementById('bt_submit').click();");
+		btn_Submit.click();
+
 		Assert.assertEquals(sResource.getResource("updatesuccess"), lbl_UpdateSuccess.getText());
 		//check username
 		String strTitleName = fName + " " + lName;
@@ -107,7 +111,7 @@ public class LoginFunctions extends LoginPage{
 		
 	}
 	
-	public void clickForgotPassWord() {//WebDriver driver
+	public void clickForgotPassWord(WebDriver driver) {//WebDriver driver
 		hpl_forgotPass.click();
 	}
 	

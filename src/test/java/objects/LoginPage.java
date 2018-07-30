@@ -34,10 +34,13 @@ public class LoginPage {
 	
 /*	@FindBy(id = "IsPrivate")
 	protected WebElement chk_IsPrivate;*/
-	
-	@FindBy(id = "IsMale")
+
+	@FindBy(id = "Gender")
 	protected WebElement ddl_IsMale;
-	
+
+	@FindBy(id= "Status")
+	protected WebElement ddl_IsStatus;
+
 	@FindBy(id = "DateOfBirthDay")
 	protected WebElement ddl_DateOfBirthDay;
 	
@@ -79,5 +82,7 @@ public class LoginPage {
 	
 	@FindBy(xpath = ".//input[@id='RememberMe']/following-sibling::span/a")
 	protected WebElement hpl_forgotPass;
-	
+
+	@FindBy(xpath = ".//li[@id='proManageAddress']/following-sibling::li/a")
+	protected WebElement hpl_logout;
 }
